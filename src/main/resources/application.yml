@@ -1,0 +1,47 @@
+spring:
+  application:
+    name: pdfGenerator
+  ai:
+    openai:
+      chat:
+#        completions-path: /v1/completions
+        options:
+          model: gpt-4o
+      api-key: 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
+#  ai:
+#    chat:
+#      model: llama3.1
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/Resume
+    username: abrish
+    password: abrish
+    driver-class-yml: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    database: postgresql
+#    database-platform: org.hibernate.dialect.PostgreSQLDialect
+  flyway:
+    baseline-on-migration: true
+    enabled: true
+    baseline-description: "init"
+    baseline-version: 0
+    user: ${spring.datasource.username}
+    password: ${spring.datasource.password}
+
+springdoc:
+  api-docs:
+    path:
+      /v3/api-docs
+  swagger-ui:
+    path:
+      swagger-ui.html
+
+server:
+  port:
+    8080
