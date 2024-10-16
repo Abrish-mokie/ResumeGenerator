@@ -1,7 +1,7 @@
 package com.example.pdfgenerator.Service;
 
-import com.example.pdfgenerator.DTO.Description;
-import com.example.pdfgenerator.DTO.Resume;
+import com.example.pdfgenerator.Description.DTO.DescriptionDTOResponse;
+import com.example.pdfgenerator.Resume.Model.Resume;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.chat.client.ChatClient;
@@ -50,10 +50,10 @@ public class LLMService {
         promptParameters.put("User_provided_info", userProvidedInfo);
         Prompt prompt = promptTemplate.create(promptParameters);
 
-        Description description = this.chatClient
+        DescriptionDTOResponse description = this.chatClient
                 .prompt(prompt)
                 .call()
-                .entity(Description.class);
+                .entity(DescriptionDTOResponse.class);
 
         return description.Description();
     }

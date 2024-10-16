@@ -1,10 +1,10 @@
 package com.example.pdfgenerator.Service;
 
-import com.example.pdfgenerator.DTO.*;
-import com.lowagie.text.*;
+import com.example.pdfgenerator.Resume.ComponentDTO.*;
 import com.lowagie.text.Chunk;
 import com.lowagie.text.Document;
 import com.lowagie.text.Font;
+import com.lowagie.text.*;
 import com.lowagie.text.FontFactory;
 import com.lowagie.text.ListItem;
 import com.lowagie.text.PageSize;
@@ -13,17 +13,14 @@ import com.lowagie.text.pdf.PdfWriter;
 import com.lowagie.text.pdf.draw.LineSeparator;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
 @Data
 public class PdfGeneratorService {
 
@@ -44,15 +41,15 @@ public class PdfGeneratorService {
 
     public PdfGeneratorService(
             Description description,
-            List<Skills> skills,
-            List<ProfessionalExprience> professionalExperiences,
+            List<com.example.pdfgenerator.Resume.ComponentDTO.Skills> skills,
+            List<Exprience> expriences,
             List<Certification> certifications,
-            List<Projects> projects,
+            List<Project> projects,
             List<Education> educations
     ){
         this.description = description;
         this.skills = skills;
-        this.experiences = professionalExperiences;
+        this.experiences = expriences;
         this.certifications = certifications;
         this.projects = projects;
         this.education = educations;
@@ -72,11 +69,11 @@ public class PdfGeneratorService {
 
 
 
-    private final List<ProfessionalExprience> experiences ;
+    private final List<Exprience> experiences ;
 
     private final List<Skills> skills ;
 
-    private final List<Projects> projects ;
+    private final List<Project> projects ;
 
     private final List<Certification> certifications ;
 
@@ -193,12 +190,12 @@ public class PdfGeneratorService {
         resume.add(spacerParagraphAfter);
         resume.add(divider);
         resume.add(getSubTitleBold("Professional Expreince: "));
-        for (ProfessionalExprience expr: this.experiences){
+        for (Exprience expr: this.experiences){
             professionalExprienceGenerator(resume,fontSubTitle,expr,spacerParagraphBefore,spacerParagraphAfter);
         }
         resume.add(divider);
         resume.add(getSubTitleBold("Projects"));
-        for(Projects projects: this.projects){
+        for(Project projects: this.projects){
             projectsGenerator(resume,projects);
         }
         resume.add(spacerParagraphBefore);
@@ -237,7 +234,7 @@ public class PdfGeneratorService {
         return subTitleParagraph;
     }
 
-    private void professionalExprienceGenerator(Document doc,  Font normalFont, ProfessionalExprience professionalExprience, Paragraph topSpacer, Paragraph buttomSpacer){
+    private void professionalExprienceGenerator(Document doc, Font normalFont, Exprience professionalExprience, Paragraph topSpacer, Paragraph buttomSpacer){
         Font fontTitle = FontFactory.getFont(FontFactory.TIMES_BOLD,14);
         Paragraph title = new Paragraph(professionalExprience.title(),fontTitle);
         Paragraph subTitle = new Paragraph(professionalExprience.subTitle(),normalFont);
@@ -271,7 +268,7 @@ public class PdfGeneratorService {
 
     }
 
-    private void projectsGenerator(Document doc, Projects projects){
+    private void projectsGenerator(Document doc, Project projects){
         Paragraph spacerParagraphBefore = new Paragraph();
         spacerParagraphBefore.setSpacingBefore(10);
         Font fontTitle = FontFactory.getFont(FontFactory.TIMES_BOLD,14);

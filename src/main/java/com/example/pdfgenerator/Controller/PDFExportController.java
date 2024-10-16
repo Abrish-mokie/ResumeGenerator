@@ -1,15 +1,15 @@
 package com.example.pdfgenerator.Controller;
 
-import com.example.pdfgenerator.DTO.ProfessionalExprience;
-import com.example.pdfgenerator.Model.Experiences;
-import com.example.pdfgenerator.Repository.ExperiencesRepository;
+import com.example.pdfgenerator.Experience.DTO.RequestExprienceDTO;
+import com.example.pdfgenerator.Experience.Model.Experiences;
+import com.example.pdfgenerator.Experience.Repository.ExperiencesRepository;
 import com.example.pdfgenerator.Service.DataManipulation;
 import com.example.pdfgenerator.Service.LLMService;
 import com.example.pdfgenerator.Service.PdfGeneratorService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,6 +22,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@Tag(name = "Testing", description = "Used for general testing")
 public class PDFExportController {
 
     private final PdfGeneratorService pdfGeneratorService;
@@ -60,7 +61,7 @@ public class PDFExportController {
     }
 
     @PostMapping("/expriences/post")
-    public ResponseEntity postExprience(ProfessionalExprience exprience){
+    public ResponseEntity postExprience(RequestExprienceDTO exprience){
         manipulation.postExprience(exprience);
         return ResponseEntity.status(201).build();
     }
