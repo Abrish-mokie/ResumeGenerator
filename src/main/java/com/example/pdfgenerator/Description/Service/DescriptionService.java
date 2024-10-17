@@ -3,7 +3,6 @@ package com.example.pdfgenerator.Description.Service;
 
 import com.example.pdfgenerator.Description.DTO.DescriptionDTORequest;
 import com.example.pdfgenerator.Description.DTO.DescriptionDTOResponse;
-import com.example.pdfgenerator.Description.Model.Description;
 import com.example.pdfgenerator.Description.Repository.DescriptionRepository;
 import com.example.pdfgenerator.Description.Service.Mapper.DescriptionMappers;
 import lombok.RequiredArgsConstructor;

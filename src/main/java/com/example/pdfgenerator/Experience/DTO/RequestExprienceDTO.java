@@ -4,7 +4,8 @@ import java.util.List;
 
 public record RequestExprienceDTO(
         Long userId,
-        String userName,
+        String location,
+        String duration,
         String title,
         String subTitle,
         List<String> responsibilities

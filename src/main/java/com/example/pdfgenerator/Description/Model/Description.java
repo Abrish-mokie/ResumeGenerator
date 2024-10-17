@@ -27,6 +27,7 @@ public class Description {
     @JsonBackReference
     private Candidate user;
 
+    @Column(columnDefinition = "TEXT")
     private String description;
 
 }

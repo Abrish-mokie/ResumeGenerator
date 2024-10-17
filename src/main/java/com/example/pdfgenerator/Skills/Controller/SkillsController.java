@@ -1,9 +1,6 @@
 package com.example.pdfgenerator.Skills.Controller;
 
 
-import com.example.pdfgenerator.Projects.DTO.RequestProjectsDTO;
-import com.example.pdfgenerator.Projects.DTO.ResponseProjectDTO;
-import com.example.pdfgenerator.Projects.Service.ProjectServices;
 import com.example.pdfgenerator.Skills.DTO.RequestSkillsDTO;
 import com.example.pdfgenerator.Skills.DTO.ResponseSkillsDTO;
 import com.example.pdfgenerator.Skills.Service.SkillsService;

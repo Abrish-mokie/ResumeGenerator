@@ -14,19 +14,20 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class ProjectMapper {
 
-    private UserRepository repo;
+    private final UserRepository repo;
 
     public Projects toProjects(RequestProjectsDTO dto){
         return Projects.builder()
                 .user(repo.findById(dto.userId()).orElseThrow())
                 .title(dto.title())
                 .description(dto.description())
+                .duration(dto.duration())
                 .projectObjectives(dto.projectObjectives())
                 .build();
     }
 
     public ResponseProjectDTO fromProjects(Projects model){
-        return new ResponseProjectDTO(model.getTitle(),model.getDescription(),model.getProjectObjectives());
+        return new ResponseProjectDTO(model.getId(), model.getTitle(),model.getDescription(),model.getDescription(),model.getProjectObjectives());
     }
 }
 

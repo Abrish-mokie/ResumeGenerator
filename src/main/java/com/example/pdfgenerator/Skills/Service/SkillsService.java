@@ -1,14 +1,11 @@
 package com.example.pdfgenerator.Skills.Service;
 
-import com.example.pdfgenerator.Projects.DTO.RequestProjectsDTO;
-import com.example.pdfgenerator.Projects.DTO.ResponseProjectDTO;
-import com.example.pdfgenerator.Projects.Repository.ProjectsRepository;
-import com.example.pdfgenerator.Projects.Service.Mapper.ProjectMapper;
 import com.example.pdfgenerator.Skills.DTO.RequestSkillsDTO;
 import com.example.pdfgenerator.Skills.DTO.ResponseSkillsDTO;
 import com.example.pdfgenerator.Skills.Repository.SkillsRepository;
 import com.example.pdfgenerator.Skills.Service.Mapper.SkillsMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

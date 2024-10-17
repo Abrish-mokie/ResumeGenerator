@@ -1,6 +1,8 @@
-package com.example.pdfgenerator.Description.Controller;
+package com.example.pdfgenerator.Certification.Controller;
 
-
+import com.example.pdfgenerator.Certification.DTO.RequestCertificateDTO;
+import com.example.pdfgenerator.Certification.DTO.ResponseCertificateDTO;
+import com.example.pdfgenerator.Certification.Service.CertificateService;
 import com.example.pdfgenerator.Description.DTO.DescriptionDTORequest;
 import com.example.pdfgenerator.Description.DTO.DescriptionDTOResponse;
 import com.example.pdfgenerator.Description.Service.DescriptionService;
@@ -12,26 +14,26 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/description")
+@RequestMapping("/certificate")
 @RequiredArgsConstructor
-@Tag(name = "Description", description = "For managing resume descriptions entries")
-public class DescriptionController {
+@Tag(name = "Certificate", description = "For managing resume certificate entries")
+public class CertificateController {
 
-    private final DescriptionService descriptionService;
+    private final CertificateService descriptionService;
 
     @PostMapping("/save")
-    public ResponseEntity<Void> save(DescriptionDTORequest dto){
+    public ResponseEntity<Void> save(RequestCertificateDTO dto){
         descriptionService.save(dto);
         return ResponseEntity.status(201).build();
     }
 
     @GetMapping("/get/{id}")
-    public ResponseEntity<DescriptionDTOResponse> get(@PathVariable Long id){
+    public ResponseEntity<ResponseCertificateDTO> get(@PathVariable Long id){
         return ResponseEntity.ok(descriptionService.getById(id));
     }
 
     @GetMapping("/get")
-    public ResponseEntity<List<DescriptionDTOResponse>> getAll(){
+    public ResponseEntity<List<ResponseCertificateDTO>> getAll(){
         return ResponseEntity.ok(descriptionService.getAll());
     }
 
@@ -40,7 +42,4 @@ public class DescriptionController {
         descriptionService.delete(id);
         return ResponseEntity.ok().build();
     }
-
-
 }
-

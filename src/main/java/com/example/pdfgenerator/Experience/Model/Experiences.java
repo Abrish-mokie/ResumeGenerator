@@ -30,6 +30,8 @@ public class Experiences {
 
     private String title;
     private String subTitle;
+    private String location;
+    private String duration;
 
     @ElementCollection
     private List<String> responsibilities;

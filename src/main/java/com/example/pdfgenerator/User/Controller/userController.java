@@ -1,7 +1,8 @@
 package com.example.pdfgenerator.User.Controller;
 
 
-import com.example.pdfgenerator.User.DTO.UserDTO;
+import com.example.pdfgenerator.User.DTO.RequestUserDTO;
+import com.example.pdfgenerator.User.DTO.ResponseUserDTO;
 import com.example.pdfgenerator.User.Model.Candidate;
 import com.example.pdfgenerator.User.Service.UserService;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -10,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/user")
@@ -21,21 +21,19 @@ public class userController {
     private final UserService service;
 
     @PostMapping("/save")
-    public ResponseEntity<Candidate> save(UserDTO dto){
+    public ResponseEntity<Candidate> save(RequestUserDTO dto){
         service.save(dto);
         return ResponseEntity.status(201).build();
     }
 
     @GetMapping("/get/{name}")
-    public ResponseEntity<Candidate> get(@PathVariable String name){
-        Optional<Candidate> Candidate = service.get(name);
-        return Candidate.map(ResponseEntity::ok).orElseGet(()->ResponseEntity.notFound().build());
+    public ResponseEntity<ResponseUserDTO> get(@PathVariable String name){
+        return ResponseEntity.ok(service.getByName(name));
     }
 
     @GetMapping("/getAll")
-    public ResponseEntity<List<Candidate>> getAll(){
-        List<Candidate> Candidate = service.getAll();
-        return ResponseEntity.ok(Candidate);
+    public ResponseEntity<List<ResponseUserDTO>> getAll(){
+        return ResponseEntity.ok(service.getAll());
     }
 
     @DeleteMapping("/delete/{id}")

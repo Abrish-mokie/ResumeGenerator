@@ -16,6 +16,8 @@ public class ExprienceMapper {
     public Experiences toExprience(RequestExprienceDTO dto){
         return Experiences.builder()
                 .user(repo.findById(dto.userId()).orElseThrow())
+                .duration(dto.duration())
+                .location(dto.location())
                 .title(dto.title())
                 .subTitle(dto.subTitle())
                 .responsibilities(dto.responsibilities())
@@ -23,6 +25,13 @@ public class ExprienceMapper {
     }
 
     public ResponseExprienceDTO fromExprience(Experiences model){
-        return new ResponseExprienceDTO(model.getTitle(),model.getSubTitle(),model.getResponsibilities());
+        return new ResponseExprienceDTO(
+                model.getId(),
+                model.getTitle(),
+                model.getSubTitle(),
+                model.getLocation(),
+                model.getDuration(),
+                model.getResponsibilities()
+        );
     }
 }

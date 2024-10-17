@@ -33,6 +33,8 @@ public class Projects {
 
     private String description;
 
+    private String duration;
+
     @ElementCollection
     private List<String> projectObjectives;
 }

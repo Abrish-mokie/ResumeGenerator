@@ -4,12 +4,14 @@ import com.example.pdfgenerator.Skills.DTO.RequestSkillsDTO;
 import com.example.pdfgenerator.Skills.DTO.ResponseSkillsDTO;
 import com.example.pdfgenerator.Skills.Model.Skills;
 import com.example.pdfgenerator.User.Repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class SkillsMapper {
 
-    private UserRepository repo;
+    private final UserRepository repo;
 
     public Skills toSkills(RequestSkillsDTO dto){
         return Skills.builder()

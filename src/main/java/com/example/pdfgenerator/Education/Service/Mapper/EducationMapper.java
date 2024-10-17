@@ -22,6 +22,6 @@ public class EducationMapper {
     }
 
     public ResponseEducationDTO fromEducation(Education model){
-        return new ResponseEducationDTO(model.getTitle(),model.getDescription());
+        return new ResponseEducationDTO(model.getId(), model.getTitle(),model.getDescription());
     }
 }

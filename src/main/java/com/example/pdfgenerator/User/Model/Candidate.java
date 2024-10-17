@@ -33,6 +33,16 @@ public class Candidate {
 
     private String title;
 
+    private String email;
+
+    private String phoneNumber;
+
+    private String address;
+
+    private String linkedIn;
+
+    private String website;
+
     @OneToOne(
             mappedBy = "user"
     )
