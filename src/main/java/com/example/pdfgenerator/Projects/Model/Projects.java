@@ -4,15 +4,13 @@ package com.example.pdfgenerator.Projects.Model;
 import com.example.pdfgenerator.User.Model.Candidate;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
 @Entity
-@Data
+@Setter
+@Getter
 @AllArgsConstructor
 @Builder
 @NoArgsConstructor
@@ -37,4 +35,6 @@ public class Projects {
 
     @ElementCollection
     private List<String> projectObjectives;
+
+
 }

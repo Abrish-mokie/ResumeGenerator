@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/user")
@@ -18,28 +19,34 @@ import java.util.List;
 @Tag(name="User management", description = "All methods for dealing with a user")
 public class userController {
 
-    private final UserService service;
+    private final UserService userService;
 
     @PostMapping("/save")
     public ResponseEntity<Candidate> save(RequestUserDTO dto){
-        service.save(dto);
+        userService.save(dto);
         return ResponseEntity.status(201).build();
     }
 
     @GetMapping("/get/{name}")
     public ResponseEntity<ResponseUserDTO> get(@PathVariable String name){
-        return ResponseEntity.ok(service.getByName(name));
+        return ResponseEntity.ok(userService.getByName(name));
     }
 
     @GetMapping("/getAll")
     public ResponseEntity<List<ResponseUserDTO>> getAll(){
-        return ResponseEntity.ok(service.getAll());
+        return ResponseEntity.ok(userService.getAll());
     }
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id){
-        service.delete(id);
+        userService.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @PatchMapping("/patch/{id}")
+    public ResponseEntity<Void> patch(@PathVariable Long id,@RequestBody Map<String,Object> value){
+        userService.patch(id,value);
+        return ResponseEntity.ok().build();
     }
 
 }

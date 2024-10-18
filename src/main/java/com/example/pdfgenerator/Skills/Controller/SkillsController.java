@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RequestMapping("/skills")
 @RestController
@@ -38,6 +39,12 @@ public class SkillsController {
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id){
         skillsService.delete(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @PatchMapping("/patch/{id}")
+    public ResponseEntity<Void> patch(@PathVariable Long id,@RequestBody Map<String,Object> value){
+        skillsService.patch(id,value);
         return ResponseEntity.ok().build();
     }
 }

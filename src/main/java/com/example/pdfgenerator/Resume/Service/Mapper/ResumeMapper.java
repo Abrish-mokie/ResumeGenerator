@@ -13,6 +13,7 @@ import com.example.pdfgenerator.Projects.Service.Mapper.ProjectMapper;
 import com.example.pdfgenerator.Resume.ComponentDTO.*;
 import com.example.pdfgenerator.Skills.DTO.ResponseSkillsDTO;
 import com.example.pdfgenerator.Skills.Service.Mapper.SkillsMapper;
+import com.example.pdfgenerator.User.DTO.ResponseUserDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -38,12 +39,15 @@ public class ResumeMapper {
     }
 
     public Project toProject(ResponseProjectDTO dto){
-        return new Project(dto.title(),dto.description(),dto.projectObjectives());
+        return new Project(dto.title(),dto.description(),dto.duration(),dto.projectObjectives());
     }
 
     public Education toEducation(ResponseEducationDTO dto){
         return new Education(dto.title(),dto.description());
     }
 
+    public User toUser(ResponseUserDTO dto){
+        return new User(dto.name(),dto.title(),dto.email(),dto.address(),dto.linkedIn(),dto.website());
+    }
 
 }

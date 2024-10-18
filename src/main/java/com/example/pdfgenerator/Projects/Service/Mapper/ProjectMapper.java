@@ -27,7 +27,7 @@ public class ProjectMapper {
     }
 
     public ResponseProjectDTO fromProjects(Projects model){
-        return new ResponseProjectDTO(model.getId(), model.getTitle(),model.getDescription(),model.getDescription(),model.getProjectObjectives());
+        return new ResponseProjectDTO(model.getId(), model.getTitle(),model.getDescription(),model.getDuration(),model.getProjectObjectives());
     }
 }
 

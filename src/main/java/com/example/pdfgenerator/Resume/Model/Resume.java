@@ -12,6 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 public class Resume {
 
+    private User user;
     private Description description;
     private List<Skills> skills;
     private List<Exprience> professionalExperiences;

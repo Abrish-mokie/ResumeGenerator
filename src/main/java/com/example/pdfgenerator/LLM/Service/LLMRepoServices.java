@@ -1,9 +1,10 @@
-package com.example.pdfgenerator.Certification.Service;
+package com.example.pdfgenerator.LLM.Service;
 
-import com.example.pdfgenerator.Certification.DTO.RequestCertificateDTO;
-import com.example.pdfgenerator.Certification.DTO.ResponseCertificateDTO;
-import com.example.pdfgenerator.Certification.Repository.CertificatesRepository;
-import com.example.pdfgenerator.Certification.Service.Mapper.CertificateMapper;
+import com.example.pdfgenerator.Experience.DTO.ResponseExprienceDTO;
+import com.example.pdfgenerator.LLM.DTO.RequestLLMDTO;
+import com.example.pdfgenerator.LLM.DTO.ResponseLLMDTO;
+import com.example.pdfgenerator.LLM.Repository.LLMRepository;
+import com.example.pdfgenerator.LLM.Service.Mapper.LLMMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,21 +15,21 @@ import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
-public class CertificateService {
+public class LLMRepoServices {
 
-    private final CertificatesRepository repo;
-    private final CertificateMapper mapper;
+    private final LLMRepository repo;
+    private final LLMMapper mapper;
 
-    public void save(RequestCertificateDTO dto){
-        repo.save(mapper.toCertificate(dto));
+    public void save(String dto){
+        repo.save(mapper.toPromptTemplate(dto));
     }
 
-    public List<ResponseCertificateDTO> getAll(){
-        return repo.findAll().stream().map(mapper::fromCertificate).toList();
+    public List<ResponseLLMDTO> getAll(){
+        return repo.findAll().stream().map(mapper::fromPromptTemplate).toList();
     }
 
-    public ResponseCertificateDTO getById(Long id){
-        return mapper.fromCertificate(repo.getReferenceById(id));
+    public ResponseLLMDTO getById(Long id){
+        return mapper.fromPromptTemplate(repo.getReferenceById(id));
     }
 
     public void delete(Long id){
@@ -56,5 +57,4 @@ public class CertificateService {
 
         repo.save(toBePatched);
     }
-
 }

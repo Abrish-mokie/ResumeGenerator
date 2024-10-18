@@ -9,6 +9,7 @@ import com.example.pdfgenerator.Resume.ComponentDTO.*;
 import com.example.pdfgenerator.Resume.DTO.Resume;
 import com.example.pdfgenerator.Resume.Service.Mapper.ResumeMapper;
 import com.example.pdfgenerator.Skills.Service.SkillsService;
+import com.example.pdfgenerator.User.Service.UserService;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -27,6 +28,7 @@ public class PDFCreation {
     private final CertificateService certificateService;
     private final ProjectServices projectServices;
     private final EducationService educationService;
+    private final UserService userService;
 
 
     public void staticResume(HttpServletResponse response) throws IOException {
@@ -38,7 +40,8 @@ public class PDFCreation {
 
     public Resume buildResume(){
 
-        List<Description> description = descriptionService.getAll().stream().map(mapper::toDescription).toList();
+        User user = userService.getAll().stream().map(mapper::toUser).toList().getFirst();
+        Description description = descriptionService.getAll().stream().map(mapper::toDescription).toList().getFirst();
         List<Skills> skills = skillsService.getAll().stream().map(mapper::toSkills).toList();
         List<Exprience> exprience = exprienceService.getAll().stream().map(mapper::toExperience).toList();
         List<Certification> certifications = certificateService.getAll().stream().map(mapper::toCertificate).toList();
@@ -46,7 +49,8 @@ public class PDFCreation {
         List<Education> educations = educationService.getAll().stream().map(mapper::toEducation).toList();
 
         return new Resume(
-                description.getFirst(),
+                user,
+                description,
                 skills,
                 exprience,
                 certifications,

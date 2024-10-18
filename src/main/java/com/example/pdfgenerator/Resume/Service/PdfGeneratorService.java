@@ -26,6 +26,7 @@ import java.util.List;
 public class PdfGeneratorService {
 
     public PdfGeneratorService() {
+        this.user = new User("","","","","","");
         this.description = new Description("");
         this.experiences = new ArrayList<>();
         this.skills = new ArrayList<>();
@@ -35,6 +36,7 @@ public class PdfGeneratorService {
     }
 
     public PdfGeneratorService(
+            User user,
             Description description,
             List<com.example.pdfgenerator.Resume.ComponentDTO.Skills> skills,
             List<Exprience> expriences,
@@ -42,6 +44,7 @@ public class PdfGeneratorService {
             List<Project> projects,
             List<Education> educations
     ){
+        this.user = user;
         this.description = description;
         this.skills = skills;
         this.experiences = expriences;
@@ -51,6 +54,7 @@ public class PdfGeneratorService {
     }
 
     public PdfGeneratorService(Resume resume){
+        this.user = resume.user();
         this.description = resume.description();
         this.skills = resume.skills();
         this.experiences = resume.expriences();
@@ -72,6 +76,8 @@ public class PdfGeneratorService {
 
     private final Description description;
 
+    private final User user;
+
 
     public void export(HttpServletResponse response) throws IOException {
 
@@ -84,23 +90,23 @@ public class PdfGeneratorService {
         Font fontSubTitleBold = FontFactory.getFont(FontFactory.TIMES_BOLD,16);
         Font paragraphFont = FontFactory.getFont(FontFactory.TIMES, 12);
 
-        Paragraph paragraph = new Paragraph("Abraham Afewerki",fontTitle);
+        Paragraph paragraph = new Paragraph(user.name(),fontTitle);
         paragraph.setAlignment(Paragraph.ALIGN_CENTER);
         paragraph.setSpacingBefore(30);
 
         Font fontAnchor = FontFactory.getFont(FontFactory.TIMES,12, new Color(0,0,255));
 
 
-        Chunk email = new Chunk("Email: abrish.mokie@gmail.com",fontAnchor);
-        email.setAnchor("mailto:abrish.mokie@gmail.com");
+        Chunk email = new Chunk("Email: "+user.email(),fontAnchor);
+        email.setAnchor("mailto:" + user.email());
         Paragraph emailParagraph = new Paragraph(email);
         emailParagraph.setAlignment(Paragraph.ALIGN_CENTER);
 
-        Chunk address = new Chunk("San Antonio, TX United States",fontSubTitle);
+        Chunk address = new Chunk(user.address(),fontSubTitle);
         Paragraph addressParagraph = new Paragraph(address);
         addressParagraph.setAlignment(Paragraph.ALIGN_CENTER);
 
-        Chunk jobTitle = new Chunk("Software Engineer | Full Stack Developer",fontSubTitleBold);
+        Chunk jobTitle = new Chunk(user.title(),fontSubTitleBold);
         Paragraph jobTitleParagraph = new Paragraph(jobTitle);
         jobTitleParagraph.setAlignment(Paragraph.ALIGN_CENTER);
         jobTitleParagraph.setSpacingAfter(30);
@@ -140,7 +146,7 @@ public class PdfGeneratorService {
         }
         resume.add(spacerParagraphAfter);
         resume.add(divider);
-        resume.add(getSubTitleBold("Professional Expreince: "));
+        resume.add(getSubTitleBold("Professional Experience: "));
         for (Exprience expr: this.experiences){
             professionalExprienceGenerator(resume,fontSubTitle,expr,spacerParagraphBefore,spacerParagraphAfter);
         }
@@ -187,11 +193,18 @@ public class PdfGeneratorService {
 
     private void professionalExprienceGenerator(Document doc, Font normalFont, Exprience professionalExprience, Paragraph topSpacer, Paragraph buttomSpacer){
         Font fontTitle = FontFactory.getFont(FontFactory.TIMES_BOLD,14);
+        Font fontLocation = FontFactory.getFont(FontFactory.TIMES_BOLD, 12);
+        Font fontDuration = FontFactory.getFont(FontFactory.TIMES, 10);
         Paragraph title = new Paragraph(professionalExprience.title(),fontTitle);
-        Paragraph subTitle = new Paragraph(professionalExprience.subTitle(),normalFont);
-        subTitle.setSpacingAfter(8);
+        Paragraph location = new Paragraph(professionalExprience.location(),fontLocation);
+        Paragraph duration = new Paragraph(professionalExprience.duration(),fontDuration);
+//        Paragraph subTitle = new Paragraph(professionalExprience.subTitle(),normalFont);
+//        subTitle.setSpacingAfter(8);
+//        subTitle.setSpacingBefore(8);
+//        subTitle.setIndentationLeft(12);
         doc.add(title);
-        doc.add(subTitle);
+        doc.add(location);
+        doc.add(duration);
         doc.add(professionalExprienceResponsibilitiesList(professionalExprience.responsibilities()));
         doc.add(buttomSpacer);
 
@@ -223,14 +236,17 @@ public class PdfGeneratorService {
         Paragraph spacerParagraphBefore = new Paragraph();
         spacerParagraphBefore.setSpacingBefore(10);
         Font fontTitle = FontFactory.getFont(FontFactory.TIMES_BOLD,14);
+        Font fontDuration = FontFactory.getFont(FontFactory.TIMES, 10);
         Font fontDescription = FontFactory.getFont(FontFactory.TIMES,12);
         Paragraph title = new Paragraph(projects.title(),fontTitle);
+        Paragraph duration = new Paragraph(projects.duration(),fontDuration);
         Paragraph description = new Paragraph(projects.description(),fontDescription);
         description.setSpacingAfter(10);
         description.setSpacingBefore(10);
-        description.setIndentationLeft(20);
+        description.setIndentationLeft(12);
         doc.add(spacerParagraphBefore);
         doc.add(title);
+        doc.add(duration);
         doc.add(description);
         doc.add(professionalExprienceResponsibilitiesList(projects.projectObjectives()));
     }

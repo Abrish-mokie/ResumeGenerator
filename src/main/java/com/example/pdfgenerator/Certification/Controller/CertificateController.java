@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/certificate")
@@ -19,27 +20,34 @@ import java.util.List;
 @Tag(name = "Certificate", description = "For managing resume certificate entries")
 public class CertificateController {
 
-    private final CertificateService descriptionService;
+    private final CertificateService certificateService;
 
     @PostMapping("/save")
     public ResponseEntity<Void> save(RequestCertificateDTO dto){
-        descriptionService.save(dto);
+        certificateService.save(dto);
         return ResponseEntity.status(201).build();
     }
 
     @GetMapping("/get/{id}")
     public ResponseEntity<ResponseCertificateDTO> get(@PathVariable Long id){
-        return ResponseEntity.ok(descriptionService.getById(id));
+        return ResponseEntity.ok(certificateService.getById(id));
     }
 
     @GetMapping("/get")
     public ResponseEntity<List<ResponseCertificateDTO>> getAll(){
-        return ResponseEntity.ok(descriptionService.getAll());
+        return ResponseEntity.ok(certificateService.getAll());
     }
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id){
-        descriptionService.delete(id);
+        certificateService.delete(id);
         return ResponseEntity.ok().build();
     }
+
+    @PatchMapping("/patch/{id}")
+    public ResponseEntity<Void> patch(@PathVariable Long id,@RequestBody Map<String,Object> value){
+        certificateService.patch(id,value);
+        return ResponseEntity.ok().build();
+    }
+
 }

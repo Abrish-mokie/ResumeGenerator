@@ -1,7 +1,5 @@
 package com.example.pdfgenerator.Experience.Controller;
 
-import com.example.pdfgenerator.Education.DTO.RequestEducationDTO;
-import com.example.pdfgenerator.Education.DTO.ResponseEducationDTO;
 import com.example.pdfgenerator.Experience.DTO.RequestExprienceDTO;
 import com.example.pdfgenerator.Experience.DTO.ResponseExprienceDTO;
 import com.example.pdfgenerator.Experience.Service.ExprienceService;
@@ -11,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RequestMapping("/experience")
 @RestController
@@ -39,6 +38,12 @@ public class ExprienceController {
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id){
         exprienceService.delete(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @PatchMapping("/patch/{id}")
+    public ResponseEntity<Void> patch(@PathVariable Long id,@RequestBody Map<String,Object> value){
+        exprienceService.patch(id,value);
         return ResponseEntity.ok().build();
     }
 }

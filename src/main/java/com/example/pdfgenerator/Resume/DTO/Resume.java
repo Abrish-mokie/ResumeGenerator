@@ -5,6 +5,7 @@ import com.example.pdfgenerator.Resume.ComponentDTO.*;
 import java.util.List;
 
 public record Resume(
+        User user,
         Description description,
         List<Skills> skills,
         List<Exprience> expriences,

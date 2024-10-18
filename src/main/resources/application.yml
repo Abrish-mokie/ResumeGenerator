@@ -7,15 +7,12 @@ spring:
 #        completions-path: /v1/completions
         options:
           model: gpt-4o
-      api-key: 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
-#  ai:
-#    chat:
-#      model: llama3.1
+      api-key: ${Open-AI_key}
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/Resume
-    username: abrish
-    password: abrish
+    url: jdbc:postgresql://localhost:${datasource_port}/Resume
+    username: ${datasource_userName}
+    password: ${datasource_password}
     driver-class-yml: org.postgresql.Driver
   jpa:
     hibernate:
@@ -31,8 +28,8 @@ spring:
     enabled: true
     baseline-description: "init"
     baseline-version: 0
-    user: ${spring.datasource.username}
-    password: ${spring.datasource.password}
+    user: ${datasource_userName}
+    password: ${datasource_password}
 
 springdoc:
   api-docs:
@@ -44,4 +41,4 @@ springdoc:
 
 server:
   port:
-    8080
+    ${port}

@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RequestMapping("/education")
 @RestController
@@ -40,4 +41,12 @@ public class EducationController {
         educationService.delete(id);
         return ResponseEntity.ok().build();
     }
+
+    @PatchMapping("/patch/{id}")
+    public ResponseEntity<Void> patch(@PathVariable Long id,@RequestBody Map<String,Object> value){
+        educationService.patch(id,value);
+        return ResponseEntity.ok().build();
+    }
+
+
 }
