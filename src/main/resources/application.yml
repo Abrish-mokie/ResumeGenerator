@@ -6,11 +6,11 @@ spring:
       chat:
 #        completions-path: /v1/completions
         options:
-          model: gpt-4o
+          model: ${GPT_model}
       api-key: ${Open-AI_key}
 
   datasource:
-    url: jdbc:postgresql://localhost:${datasource_port}/Resume
+    url: jdbc:postgresql://localhost:${datasource_port}/${Database_name}
     username: ${datasource_userName}
     password: ${datasource_password}
     driver-class-yml: org.postgresql.Driver
@@ -41,4 +41,4 @@ springdoc:
 
 server:
   port:
-    ${port}
+    8080

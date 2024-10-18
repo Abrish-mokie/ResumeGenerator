@@ -38,6 +38,8 @@ CREATE TABLE experiences (
     id BIGSERIAL PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
     sub_title VARCHAR(255),
+    location VARCHAR(255),
+    duration VARCHAR(255),
     candidate_id BIGINT,
     CONSTRAINT fk_experiences_candidate FOREIGN KEY (candidate_id) REFERENCES candidate (id) ON DELETE CASCADE
 );
@@ -62,6 +64,7 @@ CREATE TABLE projects (
     id BIGSERIAL PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
     description TEXT,
+duration VARCHAR(255),
     candidate_id BIGINT,
     CONSTRAINT fk_projects_candidate FOREIGN KEY (candidate_id) REFERENCES candidate (id) ON DELETE CASCADE
 );
@@ -80,4 +83,10 @@ CREATE TABLE education (
     description TEXT,
     candidate_id BIGINT,
     CONSTRAINT fk_education_candidate FOREIGN KEY (candidate_id) REFERENCES candidate (id) ON DELETE CASCADE
+);
+
+-- Creating prompt template
+CREATE TABLE prompt_template (
+    id BIGSERIAL PRIMARY KEY,
+    template TEXT NOT NULL
 );
