@@ -55,3 +55,65 @@ Future Plans
 Conclusion
 
 This AI-powered resume management system represents a step forward in how professionals can craft and optimize their resumes. By automating the process and allowing for easy customization, it saves time and ensures that users always present the best possible version of themselves to potential employers. With planned improvements and future deployments on AWS, this project will continue to evolve and meet the needs of modern professionals.
+
+
+Here’s the docker-compose.yml file for deploying the AI-Powered Resume Generator application, complete with a Postgres database and optional pgAdmin service. This setup uses environment variables to manage database credentials and integrates the OpenAI API for resume enhancements. Feel free to customize the values as needed for your deployment.
+
+```
+version: '3.7'
+
+services:
+  resume:
+    container_name: Resume_Generator
+    image: abiyos/resume_x86_64:v1.3
+    environment:
+      Database_name: *postgres_DB
+      datasource_password: *postgres_password
+      datasource_userName: *postgres_user
+      serviceName: &postgres_service_name
+      datasource_port: *postgres_internal_port
+      GPT_model: gpt-4o
+      Open-AI_key: ${open_api_key}  # Provide your OpenAI API key here
+    ports:
+      - "8081:8080"
+    restart: unless-stopped
+
+  postgres:
+    container_name: &postgres_service_name
+    image: postgres
+    environment:
+      POSTGRES_USER: &postgres_user # Define your PostgreSQL user here
+      POSTGRES_PASSWORD: &postgres_password  # Define your PostgreSQL password here
+      PGDATA: /var/lib/postgresql/data/pgdata
+      POSTGRES_DB: &postgres_DB  # Define your PostgreSQL database name here
+    volumes:
+      - postgress_data:/var/lib/postgresql/data
+    ports:
+      - *postgres_port
+    restart: unless-stopped
+
+  pgadmin:
+    container_name: Resume_Pgadmin
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin@pgadmin.org}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    volumes:
+      - pg4_data:/var/lib/pgadmin
+    ports:
+      - "5051:80"
+    restart: unless-stopped
+
+volumes:
+  pg4_data:
+  postgress_data:
+
+# Anchors for commonly used values
+ports:
+  postgres_port: "5433:5432"
+  postgres_internal_port: "5432"
+
+serviceName:
+  postgres_service_name: "Resume_Postgress"  # Define the desired PostgreSQL service name here
+```
