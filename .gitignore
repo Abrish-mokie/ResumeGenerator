@@ -36,3 +36,6 @@ build/
 ### Database storage ###
 pg_data
 pgadmin_config
+
+### docker-compose file
+docker-compose.yml

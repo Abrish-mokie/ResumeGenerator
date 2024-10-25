@@ -47,7 +47,19 @@ public class ProjectServices {
         for(Map.Entry<String,Object> entry: values.entrySet()){
             String fieldName = entry.getKey();
             Object fieldValue = entry.getValue();
-
+            System.out.println("hello");
+            log.info("patching project {}",fieldName);
+            log.info("type of projectObjectives is {}",fieldValue.getClass());
+            if(Objects.equals(fieldName, "projectObjectives")){
+                try {
+                    String setterMethodName = "set" + Character.toUpperCase(fieldName.charAt(0)) + fieldName.substring(1);
+                    Method setter = toBePatched.getClass().getMethod(setterMethodName, List.class);
+                    setter.invoke(toBePatched, fieldValue);
+                } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException |
+                         InvocationTargetException e) {
+                    throw new RuntimeException("error patching list");
+                }
+            }else {
             try{
                 String setterMethodName = "set" + Character.toUpperCase(fieldName.charAt(0)) + fieldName.substring(1);
                 Method setter = toBePatched.getClass().getMethod(setterMethodName, String.class);
@@ -57,6 +69,7 @@ public class ProjectServices {
                    InvocationTargetException e)
             {
                 throw new RuntimeException("error patching");
+            }
             }
         }
 

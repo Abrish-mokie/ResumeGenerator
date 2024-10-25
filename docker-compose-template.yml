@@ -1,0 +1,58 @@
+
+services:
+  resume:
+    container_name: Resume_Generator
+    image: abiyos/resume_x86_64:v1.3
+    environment:
+      Database_name: ${POSTGRES_DB}
+      datasource_password: ${POSTGRES_PASSWORD}
+      datasource_userName: ${POSTGRES_USERNAME}
+      serviceName: ${POSTGRES_SERVICE_NAME}
+      datasource_port: "5432"
+      GPT_model: gpt-4o
+      Open-AI_key: ${OPEN_API_KEY}
+    ports:
+      - "8081:8080"
+    restart: unless-stopped
+
+  postgres:
+    container_name: ${POSTGRES_SERVICE_NAME}
+    image: postgres
+    environment:
+      POSTGRES_USER: ${POSTGRES_USERNAME}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      PGDATA: /var/lib/postgresql/data/pgdata
+      POSTGRES_DB: ${POSTGRES_DB}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+    restart: unless-stopped
+
+  # This is not necessary just if u need it
+  pgadmin:
+    container_name: Resume_Pgadmin
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin@pgadmin.org}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    volumes:
+      - pg4_data:/var/lib/pgadmin
+    ports:
+      - "5051:80"
+    restart: unless-stopped
+
+volumes:
+  pg4_data:
+  postgres_data:
+
+
+# include the following environment variables in .env file in the same directory as
+# docker-compose file
+
+#  POSTGRES_PASSWORD=""
+#  POSTGRES_USERNAME=""
+#  POSTGRES_DB=""
+#  POSTGRES_SERVICE_NAME=""
+#  OPEN_API_KEY=""

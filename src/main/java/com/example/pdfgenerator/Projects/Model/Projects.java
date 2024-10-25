@@ -29,6 +29,7 @@ public class Projects {
 
     private String title;
 
+    @Column(length = 10240)
     private String description;
 
     private String duration;

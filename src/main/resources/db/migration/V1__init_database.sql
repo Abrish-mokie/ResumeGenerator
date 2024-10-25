@@ -64,7 +64,7 @@ CREATE TABLE projects (
     id BIGSERIAL PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
     description TEXT,
-duration VARCHAR(255),
+    duration VARCHAR(255),
     candidate_id BIGINT,
     CONSTRAINT fk_projects_candidate FOREIGN KEY (candidate_id) REFERENCES candidate (id) ON DELETE CASCADE
 );
@@ -72,7 +72,7 @@ duration VARCHAR(255),
 -- Create the Project Objectives element collection table to store the list of project objectives as strings
 CREATE TABLE project_objectives (
     project_id BIGINT,
-    objective VARCHAR(255),
+    objective TEXT,
     CONSTRAINT fk_project_objectives_project FOREIGN KEY (project_id) REFERENCES projects (id) ON DELETE CASCADE
 );
 

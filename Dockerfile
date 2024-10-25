@@ -1,5 +1,5 @@
 # Stage 2: Create the actual container with the built application
-FROM openjdk:17-jdk
+FROM openjdk:21-jdk
 
 # Set the working directory in the container
 WORKDIR /app

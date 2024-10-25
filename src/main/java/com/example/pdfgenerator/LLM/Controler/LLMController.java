@@ -15,7 +15,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@Tag(name = "Testing", description = "Used for general testing")
+@Tag(name = "ChatGPt", description = "Used for generating LLM")
 public class LLMController {
 
     private final LLMService llmService;
