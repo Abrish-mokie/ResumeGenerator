@@ -39,3 +39,4 @@ pgadmin_config
 
 ### docker-compose file
 ./docker-compose.yml
+docker-compose.yml
