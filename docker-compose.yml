@@ -1,31 +1,31 @@
-#services:
-#  postgres:
-#    container_name: Resume_Postgress
-#    image: postgres
-#    environment:
-#      POSTGRES_USER: abrish
-#      POSTGRES_PASSWORD: abrish
-#      PGDATA: /var/lib/postgresql/data/pgdata
-#      POSTGRES_DB: Resume
-#    volumes:
-#      - ./pg_data:/var/lib/postgresql/data
-#    ports:
-#      - "5432:5432"
-#    restart: unless-stopped
-#  pgadmin:
-#    container_name: Resume_Pgadmin
-#    image: dpage/pgadmin4
-#    environment:
-#      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin@pgadmin.org}
-#      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
-#      PGADMIN_CONFIG_SERVER_MODE: 'False'
-#    volumes:
-#      - ./pgadmin_config:/var/lib/pgadmin
-#    ports:
-#      - "5050:80"
-#    restart: unless-stopped
-#
-#volumes:
-#  pgadmin_config:
-#    driver: local
+services:
+  postgres:
+    container_name: Resume_Postgress
+    image: postgres
+    environment:
+      POSTGRES_USER: abrish
+      POSTGRES_PASSWORD: abrish
+      PGDATA: /var/lib/postgresql/data/pgdata
+      POSTGRES_DB: Resume
+    volumes:
+      - ./pg_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+  pgadmin:
+    container_name: Resume_Pgadmin
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin@pgadmin.org}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    volumes:
+      - ./pgadmin_config:/var/lib/pgadmin
+    ports:
+      - "5050:80"
+    restart: unless-stopped
+
+volumes:
+  pgadmin_config:
+    driver: local
 

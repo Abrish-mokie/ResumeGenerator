@@ -7,6 +7,7 @@ import com.example.pdfgenerator.LLM.Service.ResumeTemplateCreator;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,6 +22,7 @@ public class LLMController {
     private final LLMService llmService;
     private final LLMRepoServices llmRepoServices;
     private final ResumeTemplateCreator creator;
+    private final ChatClient chatClient;
 
     @PostMapping("/save")
     public ResponseEntity<Void> save(@RequestBody String prompt){
@@ -70,6 +72,12 @@ public class LLMController {
         response.setHeader(headerKey,headerValue);
         llmService.generateResume(response,id,jobDescription);
         return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("generate/test")
+    public ResponseEntity<String> test(String message){
+
+        return ResponseEntity.ok().body(chatClient.prompt(message).call().content());
     }
 
 
